@@ -1,0 +1,260 @@
+[
+  {
+    "name" : "SensorNode",
+    "fields" : [
+          { "name" : "Name", "type" : "string", "primary" : true },
+          { "name" : "Status", "type" : "string", "null" : true},
+          { "name" : "Location", "type" : "float_pair", "null" : true },
+          { "name" : "Cluster", "type" : "string", "null" : true},
+          { "name" : "Description", "type" : "string", "null" : true}
+      ],
+      "joins" : [
+          { "name" : "measured", "type" : "index", "store" : "SensorMeasurement", "inverse" : "measuredBy" }
+      ],
+      "keys" : [
+          { "field" : "Name", "type" : "value" },
+          { "field" : "Status", "type" : "value" },
+          { "field" : "Cluster", "type" : "value" }
+      ]
+  },
+  {
+     "name" : "SensorMeasurement",
+     "fields" : [         
+          { "name" : "DateTime", "type" : "datetime" },
+          { "name" : "bottom_solar_cell_temperature", "type" : "float", "null" : true },                   
+          { "name" : "top_solar_cell_temperature", "type" : "float", "null" : true },                   
+          { "name" : "air_temperature", "type" : "float", "null" : true },                   
+          { "name" : "current_val", "type" : "float", "null" : true }                   
+      ],
+      "joins" : [
+          { "name" : "measuredBy", "type" : "index", "store" : "SensorNode", "inverse" : "measured" }
+      ] 
+  },
+  {
+     "name" : "WeatherMeasurement",
+     "fields" : [         
+          { "name" : "DateTime", "type" : "datetime" },
+          { "name" : "wind_direction", "type" : "float", "null" : true },                   
+          { "name" : "air_temperature", "type" : "float", "null" : true },                   
+          { "name" : "humidity", "type" : "float", "null" : true },                   
+          { "name" : "solar_radiation", "type" : "float", "null" : true },                   
+          { "name" : "wind_speed", "type" : "float", "null" : true },                   
+          { "name" : "rain", "type" : "float", "null" : true }                   
+      ],
+      "keys" : [
+          { "field" : "DateTime", "type" : "value" }
+      ],
+      "joins" : [
+          { "name" : "measuredBy", "type" : "index", "store" : "SensorNode", "inverse" : "measured" }
+      ] 
+  },
+  {
+     "name" : "WeatherMeasurementCalc",
+     "fields" : [         
+          { "name" : "DateTime", "type" : "datetime" },
+          { "name" : "wind_direction", "type" : "float", "null" : true },                   
+          { "name" : "air_temperature", "type" : "float", "null" : true },                   
+          { "name" : "humidity", "type" : "float", "null" : true },                   
+          { "name" : "solar_radiation", "type" : "float", "null" : true },                   
+          { "name" : "wind_speed", "type" : "float", "null" : true },                   
+          { "name" : "rain", "type" : "float", "null" : true }                   
+      ],
+      "keys" : [
+          { "field" : "DateTime", "type" : "value" }
+      ],
+      "joins" : [
+          { "name" : "measuredBy", "type" : "index", "store" : "SensorNode", "inverse" : "measured" }
+      ] 
+  },
+  {
+     "name" : "SensorMeasurementCalc",
+     "fields" : [         
+          { "name": "DateTime", "type" : "datetime" },
+          { "name": "current_val", "type" : "float", "null" : true },                                      
+          { "name": "bottom_solar_cell_temperature", "type" : "float", "null" : true },                   
+          { "name": "top_solar_cell_temperature", "type" : "float", "null" : true },                   
+          { "name": "air_temperature", "type" : "float", "null" : true },                   
+          { "name": "sunAltLater", "type": "float", "null": true },
+          { "name": "sunAzimLater", "type": "float", "null": true }
+      ]
+  },
+  {
+     "name" : "WPredHour",
+     "fields" : [         
+          { "name" : "DateTime", "type" : "datetime" },
+          { "name" : "DTString", "type" : "string" },
+          { "name" : "temperature", "type" : "float", "null" : true },                   
+          { "name" : "apparent_temperature", "type" : "float", "null" : true },                   
+          { "name" : "dew_point", "type" : "float", "null" : true },                   
+          { "name" : "humidity", "type" : "float", "null" : true },                   
+          { "name" : "wind_speed", "type" : "float", "null" : true },                   
+          { "name" : "wind_bearing", "type" : "float", "null" : true },                   
+          { "name" : "visibility", "type" : "float", "null" : true },
+          { "name" : "cloud_cover", "type" : "float", "null" : true }                  
+      ],
+      "keys" : [
+          { "field" : "DateTime", "type" : "value" },
+          { "field" : "DTString", "type" : "value" }
+      ],
+      "joins" : [
+          { "name" : "measuredBy", "type" : "index", "store" : "SensorNode", "inverse" : "measured" }
+      ] 
+  },
+  {
+     "name" : "WPredARSHour",
+     "fields" : [         
+          { "name" : "DateTime", "type" : "datetime" },
+          { "name" : "DTString", "type" : "string" },
+          { "name" : "air_temperature", "type" : "float", "null" : true },                   
+          { "name" : "rain", "type" : "float", "null" : true },                   
+          { "name" : "solar_radiation", "type" : "float", "null" : true },                   
+          { "name" : "relative_humidity", "type" : "float", "null" : true },                   
+          { "name" : "wind_speed", "type" : "float", "null" : true },                   
+          { "name" : "wind_direction", "type" : "float", "null" : true },                   
+          { "name" : "cloud_cover", "type" : "float", "null" : true }                  
+      ],
+      "keys" : [
+          { "field" : "DateTime", "type" : "value" },
+          { "field" : "DTString", "type" : "value" }
+      ],
+      "joins" : [
+          { "name" : "measuredBy", "type" : "index", "store" : "SensorNode", "inverse" : "measured" }
+      ] 
+  },
+  {
+     "name" : "WMeasAvg",
+     "fields" : [         
+          { "name" : "DateTime", "type" : "datetime" },
+          { "name" : "wind_direction", "type" : "float", "null" : true },                   
+          { "name" : "air_temperature", "type" : "float", "null" : true },                   
+          { "name" : "humidity", "type" : "float", "null" : true },                   
+          { "name" : "solar_radiation", "type" : "float", "null" : true },                   
+          { "name" : "wind_speed", "type" : "float", "null" : true },                   
+          { "name" : "rain", "type" : "float", "null" : true }                   
+      ],
+      "keys" : [
+          { "field" : "DateTime", "type" : "value" }
+      ],
+      "joins" : [
+          { "name" : "measuredBy", "type" : "index", "store" : "SensorNode", "inverse" : "measured" }
+      ] 
+  },
+  {
+     "name" : "SMeasAvg",
+     "fields" : [         
+          { "name" : "DateTime", "type" : "datetime" },
+          { "name" : "static_id", "type" : "int", "null" : true},
+          { "name" : "DateTimeOrig", "type" : "datetime", "null" : true },
+          { "name" : "crnt_pred_all", "type" : "float", "null" : true },
+          { "name" : "crnt_pred_solar_wpred", "type" : "float", "null" : true },
+          { "name" : "crnt_pred_solar_wpred_areg", "type" : "float", "null" : true },
+          { "name" : "crnt_pred_solar_fcastio", "type" : "float", "null" : true },
+          { "name" : "crnt_pred_solar_fcastio_lintercept", "type" : "float", "null" : true },
+          { "name" : "crnt_nn_solar_fcastio", "type" : "float", "null" : true },
+          { "name" : "current_val", "type" : "float", "null" : true },                                      
+          { "name" : "bottom_solar_cell_temperature", "type" : "float", "null" : true },                   
+          { "name" : "top_solar_cell_temperature", "type" : "float", "null" : true },                   
+          { "name" : "air_temperature", "type" : "float", "null" : true },                   
+          { "name": "diff_all", "type": "float", "null": true },
+          { "name": "diff_solar_wpred", "type": "float", "null": true },
+          { "name": "diff_solar_wpred_areg", "type": "float", "null": true },
+          { "name": "diff_solar_fcastio", "type": "float", "null": true },
+          { "name": "diff_solar_fcastio_lintercept", "type": "float", "null": true },
+          { "name": "diff_nn_solar_fcastio", "type": "float", "null": true },
+          { "name": "diff_all_sq", "type": "float", "null": true },
+          { "name": "diff_solar_wpred_sq", "type": "float", "null": true },
+          { "name": "diff_solar_wpred_areg_sq", "type": "float", "null": true },
+          { "name": "diff_solar_fcastio_sq", "type": "float", "null": true },
+          { "name": "diff_solar_fcastio_lintercept_sq", "type": "float", "null": true },
+          { "name": "diff_nn_fcastio_sq", "type": "float", "null": true },
+          { "name": "sunAltLater", "type": "float", "null": true },
+          { "name": "sunAzimLater", "type": "float", "null": true }
+      ]
+  },
+  {
+     "name" : "ConsMeasAvg",
+     "fields" : [         
+          { "name" : "DateTime", "type" : "datetime" },
+          { "name" : "crnt", "type" : "float", "null" : true },
+          { "name" : "crnt6ahead", "type" : "float", "null" : true },
+          { "name" : "crnt_pred1", "type" : "float", "null" : true },
+          { "name" : "crnt_pred2", "type" : "float", "null" : true },
+          { "name" : "crnt_pred3", "type" : "float", "null" : true },
+          { "name" : "crnt_pred4", "type" : "float", "null" : true },
+          { "name" : "crnt_pred5", "type" : "float", "null" : true },
+          { "name" : "crnt_pred6", "type" : "float", "null" : true },
+          { "name" : "crnt_pred7", "type" : "float", "null" : true },
+          { "name" : "crnt_pred8", "type" : "float", "null" : true },
+          { "name" : "crnt_pred9", "type" : "float", "null" : true },
+          { "name" : "crnt_pred10", "type" : "float", "null" : true },
+          { "name" : "crnt_pred11", "type" : "float", "null" : true },
+          { "name" : "crnt_pred12", "type" : "float", "null" : true },
+          { "name" : "crnt_pred13", "type" : "float", "null" : true },
+          { "name" : "crnt_pred14", "type" : "float", "null" : true },
+          { "name" : "crnt_pred15", "type" : "float", "null" : true },
+          { "name" : "crnt_pred16", "type" : "float", "null" : true },
+          { "name" : "crnt_pred17", "type" : "float", "null" : true },
+          { "name": "n4", "type": "float", "null": true },
+          { "name": "n5", "type": "float", "null": true },
+          { "name": "n6", "type": "float", "null": true },
+          { "name": "n7", "type": "float", "null": true },
+          { "name": "n8", "type": "float", "null": true },
+          { "name": "n9", "type": "float", "null": true },
+          { "name": "n10", "type": "float", "null": true },
+          { "name": "n11", "type": "float", "null": true },
+          { "name": "n12", "type": "float", "null": true },
+          { "name": "n13", "type": "float", "null": true },
+          { "name": "n14", "type": "float", "null": true },
+          { "name": "n15", "type": "float", "null": true },
+          { "name": "n16", "type": "float", "null": true },
+          { "name": "n17", "type": "float", "null": true },
+          { "name": "n18", "type": "float", "null": true },
+          { "name": "n19", "type": "float", "null": true },
+          { "name": "n20", "type": "float", "null": true },
+          { "name": "n21", "type": "float", "null": true },
+          { "name": "n22", "type": "float", "null": true },
+          { "name": "n23", "type": "float", "null": true },
+          { "name": "n24", "type": "float", "null": true },
+          { "name": "n25", "type": "float", "null": true },
+          { "name": "n26", "type": "float", "null": true },
+          { "name": "n27", "type": "float", "null": true },
+          { "name": "n28", "type": "float", "null": true },
+          { "name": "n29", "type": "float", "null": true },
+          { "name": "mae1", "type": "float", "null": true },
+          { "name": "mae2", "type": "float", "null": true },
+          { "name": "mae3", "type": "float", "null": true },
+          { "name": "mae4", "type": "float", "null": true },
+          { "name": "mae5", "type": "float", "null": true },
+          { "name": "mae6", "type": "float", "null": true },
+          { "name": "mae7", "type": "float", "null": true },
+          { "name": "mae8", "type": "float", "null": true },
+          { "name": "mae9", "type": "float", "null": true },
+          { "name": "mae10", "type": "float", "null": true },
+          { "name": "mae11", "type": "float", "null": true },
+          { "name": "mae12", "type": "float", "null": true },
+          { "name": "mae13", "type": "float", "null": true },
+          { "name": "mae14", "type": "float", "null": true },
+          { "name": "mae15", "type": "float", "null": true },
+          { "name": "mae16", "type": "float", "null": true },
+          { "name": "mae17", "type": "float", "null": true },
+          { "name": "mse1", "type": "float", "null": true },
+          { "name": "mse2", "type": "float", "null": true },
+          { "name": "mse3", "type": "float", "null": true },
+          { "name": "mse4", "type": "float", "null": true },
+          { "name": "mse5", "type": "float", "null": true },
+          { "name": "mse6", "type": "float", "null": true },
+          { "name": "mse7", "type": "float", "null": true },
+          { "name": "mse8", "type": "float", "null": true },
+          { "name": "mse9", "type": "float", "null": true },
+          { "name": "mse10", "type": "float", "null": true },
+          { "name": "mse11", "type": "float", "null": true },
+          { "name": "mse12", "type": "float", "null": true },
+          { "name": "mse13", "type": "float", "null": true },
+          { "name": "mse14", "type": "float", "null": true },
+          { "name": "mse15", "type": "float", "null": true },
+          { "name": "mse16", "type": "float", "null": true },
+          { "name": "mse17", "type": "float", "null": true }
+      ]
+  }
+
+]
